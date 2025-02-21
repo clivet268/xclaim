@@ -98,7 +98,7 @@ public abstract class BukkitPlatformPlayer extends BukkitPlatformEntity implemen
             //noinspection JavaReflectionMemberAccess
             dust = (Particle) Particle.class.getField("DUST").get(null);
         } catch (ReflectiveOperationException e) {
-            dust = Particle.REDSTONE;
+            dust = Particle.DUST;
         }
         DUST_PARTICLE = dust;
     }

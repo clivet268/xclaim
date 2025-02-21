@@ -13,6 +13,6 @@ subprojects {
 debugMode = hasProperty("enableDebug")
 javaVersion = 21
 annotationsVersion = "24.1.0"
-mcVersion = "1.18.2"
+mcVersion = "1.21.4"
 serverVersion = "${mcVersion}-R0.1-SNAPSHOT"
 statsVersion = "3.1.0"

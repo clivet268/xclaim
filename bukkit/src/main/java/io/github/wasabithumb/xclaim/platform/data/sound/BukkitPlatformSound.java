@@ -4,13 +4,15 @@ import org.bukkit.Sound;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import static org.bukkit.Sound.*;
+
 public record BukkitPlatformSound(
         @NotNull Sound handle
 ) implements PlatformSound {
 
     public static @NotNull Sound parseNamed(@NotNull NamedPlatformSound named) {
         return switch (named) {
-            case MAGIC    -> Sound.BLOCK_ENCHANTMENT_TABLE_USE;
+            case MAGIC    -> BLOCK_ENCHANTMENT_TABLE_USE;
             case CLICK    -> Sound.UI_BUTTON_CLICK;
             case EXP      -> Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
             case LEVEL    -> Sound.ENTITY_PLAYER_LEVELUP;
@@ -18,16 +20,20 @@ public record BukkitPlatformSound(
         };
     }
 
-    @Contract("_ -> new")
     public static @NotNull PlatformSound of(@NotNull Sound sound) {
-        return switch (sound) {
-            case BLOCK_ENCHANTMENT_TABLE_USE  -> NamedPlatformSound.MAGIC;
-            case UI_BUTTON_CLICK              -> NamedPlatformSound.CLICK;
-            case ENTITY_EXPERIENCE_ORB_PICKUP -> NamedPlatformSound.EXP;
-            case ENTITY_PLAYER_LEVELUP        -> NamedPlatformSound.LEVEL;
-            case ENTITY_GHAST_AMBIENT         -> NamedPlatformSound.WILDCARD;
-            default -> new BukkitPlatformSound(sound);
-        };
+        if (sound.equals(BLOCK_ENCHANTMENT_TABLE_USE)) {
+                return NamedPlatformSound.MAGIC;
+        } else if (sound.equals(UI_BUTTON_CLICK)) {
+            return NamedPlatformSound.CLICK;
+        } else if (sound.equals(ENTITY_EXPERIENCE_ORB_PICKUP)) {
+            return NamedPlatformSound.EXP;
+        } else if (sound.equals(ENTITY_PLAYER_LEVELUP)) {
+            return NamedPlatformSound.LEVEL;
+        } else if (sound.equals(ENTITY_GHAST_AMBIENT)) {
+            return NamedPlatformSound.WILDCARD;
+        } else {
+            return new BukkitPlatformSound(sound);
+        }
     }
 
     //
