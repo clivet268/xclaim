@@ -7,6 +7,7 @@ import codes.wasabi.xclaim.api.enums.Permission;
 import codes.wasabi.xclaim.api.event.XClaimAddChunkToClaimEvent;
 import codes.wasabi.xclaim.api.event.XClaimEvent;
 import codes.wasabi.xclaim.api.event.XClaimRemoveChunkFromClaimEvent;
+import codes.wasabi.xclaim.config.struct.sub.ExclusionConfig;
 import codes.wasabi.xclaim.config.struct.sub.RulesConfig;
 import codes.wasabi.xclaim.economy.Economy;
 import codes.wasabi.xclaim.particle.ParticleBuilder;
@@ -147,6 +148,21 @@ public class ChunkEditor {
                 switch (slot) {
                     case 1:
                         Chunk chunk = ply.getLocation().getChunk();
+                        ExclusionConfig exlConf = XClaim.mainConfig.exclusion();
+                        //TODO Permissible needed?
+                        if (exlConf.useExclusion()) {
+                            Integer exlRad = exlConf.exclusionRadius(null);
+                            Integer exlCenterX = exlConf.exclusionCenterX(null);
+                            Integer exlCenterZ = exlConf.exclusionCenterZ(null);
+                            //TODO ideal?
+                            if (chunk.getX() > (exlCenterX - exlRad) && chunk.getX() < (exlCenterX + exlRad) ||
+                                    chunk.getZ() > (exlCenterZ - exlRad) && chunk.getZ() < (exlCenterZ + exlRad)){
+                                //TODO custom deny message
+                                Platform.getAdventure().player(ply).sendMessage(XClaim.lang.getComponent("chunk-editor-protection-deny"));
+
+
+                            }
+                        }
                         Claim existing = Claim.getByChunk(chunk);
                         if (existing != null) {
                             if (!existing.getOwner().getUniqueId().equals(ply.getUniqueId())) {
@@ -191,6 +207,7 @@ public class ChunkEditor {
                             int targetX = chunk.getX();
                             int targetZ = chunk.getZ();
                             // gross
+                            // lol
                             for (ChunkReference c : claim.getChunks()) {
                                 int thisX = c.x;
                                 int thisZ = c.z;

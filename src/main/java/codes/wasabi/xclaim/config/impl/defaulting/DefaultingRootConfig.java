@@ -3,12 +3,14 @@ package codes.wasabi.xclaim.config.impl.defaulting;
 import codes.wasabi.xclaim.config.impl.defaulting.sub.*;
 import codes.wasabi.xclaim.config.impl.filter.FilterRootConfig;
 import codes.wasabi.xclaim.config.struct.RootConfig;
+import codes.wasabi.xclaim.config.struct.sub.ExclusionConfig;
 import org.jetbrains.annotations.NotNull;
 
 public final class DefaultingRootConfig extends FilterRootConfig {
 
     private final DefaultingAutoSaveConfig autoSave;
     private final DefaultingEditorConfig editor;
+    private final DefaultingExclusionConfig exclusion;
     private final DefaultingRulesConfig rules;
     private final DefaultingWorldsConfig worlds;
     private final DefaultingIntegrationsConfig integrations;
@@ -18,6 +20,7 @@ public final class DefaultingRootConfig extends FilterRootConfig {
         super(backing);
         this.autoSave            = new DefaultingAutoSaveConfig(          backing.autoSave()            );
         this.editor              = new DefaultingEditorConfig(            backing.editor()              );
+        this.exclusion           = new DefaultingExclusionConfig(         backing.exclusion()           );
         this.rules               = new DefaultingRulesConfig(             backing.rules()               );
         this.worlds              = new DefaultingWorldsConfig(            backing.worlds()              );
         this.integrations        = new DefaultingIntegrationsConfig(      backing.integrations()        );
@@ -48,6 +51,11 @@ public final class DefaultingRootConfig extends FilterRootConfig {
     @Override
     public @NotNull DefaultingEditorConfig editor() {
         return this.editor;
+    }
+
+    @Override
+    public @NotNull ExclusionConfig exclusion() {
+        return this.exclusion;
     }
 
     @Override

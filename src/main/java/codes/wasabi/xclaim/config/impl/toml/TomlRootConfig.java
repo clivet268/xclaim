@@ -10,6 +10,7 @@ public final class TomlRootConfig extends TomlConfig implements RootConfig {
 
     private final TomlAutoSaveConfig autoSave;
     private final TomlEditorConfig editor;
+    private final TomlExclusionConfig exclusion;
     private final TomlRulesConfig rules;
     private final TomlWorldsConfig worlds;
     private final TomlIntegrationsConfig integrations;
@@ -19,6 +20,7 @@ public final class TomlRootConfig extends TomlConfig implements RootConfig {
         super(table);
         this.autoSave            = new TomlAutoSaveConfig(          this.getTable("auto-save"));
         this.editor              = new TomlEditorConfig(            this.getTable("editor"));
+        this.exclusion           = new TomlExclusionConfig(         this.getTable("exclusion"));
         this.rules               = new TomlRulesConfig(             this.getTable("rules"));
         this.worlds              = new TomlWorldsConfig(            this.getTable("worlds"));
         this.integrations        = new TomlIntegrationsConfig(      this.getTable("integrations"));
@@ -49,6 +51,10 @@ public final class TomlRootConfig extends TomlConfig implements RootConfig {
     @Override
     public @NotNull TomlEditorConfig editor() {
         return this.editor;
+    }
+    @Override
+    public @NotNull TomlExclusionConfig exclusion() {
+        return this.exclusion;
     }
 
     @Override

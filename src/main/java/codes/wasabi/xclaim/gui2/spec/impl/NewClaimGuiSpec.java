@@ -5,6 +5,7 @@ import codes.wasabi.xclaim.api.Claim;
 import codes.wasabi.xclaim.api.XCPlayer;
 import codes.wasabi.xclaim.api.event.XClaimCreateClaimEvent;
 import codes.wasabi.xclaim.api.event.XClaimEvent;
+import codes.wasabi.xclaim.config.struct.sub.ExclusionConfig;
 import codes.wasabi.xclaim.gui.ChunkEditor;
 import codes.wasabi.xclaim.gui2.GuiInstance;
 import codes.wasabi.xclaim.gui2.action.GuiAction;
@@ -73,6 +74,19 @@ public final class NewClaimGuiSpec implements GuiSpec {
 
     private void confirm(final @NotNull Player ply) {
         Chunk chunk = ply.getLocation().getChunk();
+        ExclusionConfig exlConf = XClaim.mainConfig.exclusion();
+        if (exlConf.useExclusion()) {
+            Integer exlRad = exlConf.exclusionRadius(null);
+            Integer exlCenterX = exlConf.exclusionCenterX(null);
+            Integer exlCenterZ = exlConf.exclusionCenterZ(null);
+            //TODO ideal?
+            if (chunk.getX() > (exlCenterX - exlRad) && chunk.getX() < (exlCenterX + exlRad) ||
+                    chunk.getZ() > (exlCenterZ - exlRad) && chunk.getZ() < (exlCenterZ + exlRad)){
+                //TODO custom deny message
+                Platform.getAdventure().player(ply).sendMessage(XClaim.lang.getComponent("chunk-editor-protection-deny"));
+                return;
+            }
+        }
         if (!XClaim.mainConfig.worlds().checkLists(chunk.getWorld())) {
             Platform.getAdventure().player(ply).sendMessage(XClaim.lang.getComponent("gui-new-disallowed"));
             return;

@@ -20,6 +20,9 @@ public interface RootConfig extends Config {
     @NotNull EditorConfig editor();
 
     @Contract(pure = true)
+    @NotNull ExclusionConfig exclusion();
+
+    @Contract(pure = true)
     @NotNull RulesConfig rules();
 
     @Contract(pure = true)

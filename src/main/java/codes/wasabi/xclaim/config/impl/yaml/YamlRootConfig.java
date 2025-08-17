@@ -3,6 +3,7 @@ package codes.wasabi.xclaim.config.impl.yaml;
 import codes.wasabi.xclaim.config.impl.yaml.helpers.YamlLimits;
 import codes.wasabi.xclaim.config.impl.yaml.sub.*;
 import codes.wasabi.xclaim.config.struct.RootConfig;
+import codes.wasabi.xclaim.config.struct.sub.ExclusionConfig;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
@@ -11,6 +12,7 @@ public final class YamlRootConfig extends YamlConfig implements RootConfig {
 
     private final YamlAutoSaveConfig autoSave;
     private final YamlEditorConfig editor;
+    private final YamlExclusionConfig exclusion;
     private final YamlRulesConfig rules;
     private final YamlWorldsConfig worlds;
     private final YamlIntegrationsConfig integrations;
@@ -22,6 +24,7 @@ public final class YamlRootConfig extends YamlConfig implements RootConfig {
 
         this.autoSave            = new YamlAutoSaveConfig(    this.getSection("auto-save")       );
         this.editor              = new YamlEditorConfig(      section                                 );
+        this.exclusion           = new YamlExclusionConfig(   this.getSection("exclusion")       );
         this.rules               = new YamlRulesConfig(       section,                          limits);
         this.worlds              = new YamlWorldsConfig(      this.getSection("worlds")          );
         this.integrations        = new YamlIntegrationsConfig(section,                          limits);
@@ -52,6 +55,11 @@ public final class YamlRootConfig extends YamlConfig implements RootConfig {
     @Override
     public @NotNull YamlEditorConfig editor() {
         return this.editor;
+    }
+
+    @Override
+    public @NotNull ExclusionConfig exclusion() {
+        return this.exclusion;
     }
 
     @Override
