@@ -1,5 +1,6 @@
 package io.github.wasabithumb.xclaim.claim.data.impl.yaml;
 
+import io.github.wasabithumb.xclaim.XClaim;
 import io.github.wasabithumb.xclaim.claim.flags.ClaimFlags;
 import io.github.wasabithumb.xclaim.claim.permission.Permission;
 import io.github.wasabithumb.xclaim.claim.permission.TrustLevel;
@@ -43,7 +44,9 @@ public class YamlClaimDataManager implements ClaimDataManager {
             ConfigurationSection ret = this.yaml.getConfigurationSection(key);
             if (ret != null) return ret;
         }
-        if (create) this.yaml.createSection(key);
+        if (create) {
+            return this.yaml.createSection(key);
+        }
         return null;
     }
 
@@ -92,6 +95,7 @@ public class YamlClaimDataManager implements ClaimDataManager {
     public @Nullable ClaimData load(@NotNull ClaimData.Token key) {
         this.lock.readLock().lock();
         try {
+            System.out.println(key.asLegacy());
             final ConfigurationSection section = this.getSection(key, false);
             if (section == null) return null;
 
@@ -99,7 +103,8 @@ public class YamlClaimDataManager implements ClaimDataManager {
                     .name(Objects.requireNonNull(section.getString("name")))
                     .owner(UUID.fromString(Objects.requireNonNull(section.getString("owner"))))
                     .world(Objects.requireNonNull(section.getString("world")))
-                    .flags(ClaimFlags.fromString(Objects.requireNonNullElse(section.getString("flags"), "")));
+                    .flags(ClaimFlags.fromString(Objects.requireNonNullElse(section.getString("flags"), "")))
+                    .token(key.asLegacy());
 
             ConfigurationSection chunks = section.getConfigurationSection("chunks");
             if (chunks != null) {
