@@ -5,6 +5,7 @@ import io.github.wasabithumb.xclaim.platform.data.sound.PlatformSound;
 import io.github.wasabithumb.xclaim.platform.inventory.BukkitPlatformInventory;
 import io.github.wasabithumb.xclaim.platform.inventory.PlatformInventory;
 import io.github.wasabithumb.xclaim.platform.inventory.PlatformItem;
+import io.github.wasabithumb.xclaim.platform.misc.PlatformBossBar;
 import io.github.wasabithumb.xclaim.platform.user.BukkitPlatformUser;
 import org.bukkit.Color;
 import org.bukkit.Particle;
@@ -98,7 +99,9 @@ public abstract class BukkitPlatformPlayer extends BukkitPlatformEntity implemen
             //noinspection JavaReflectionMemberAccess
             dust = (Particle) Particle.class.getField("DUST").get(null);
         } catch (ReflectiveOperationException e) {
-            dust = Particle.REDSTONE;
+            //TODO
+            dust = Particle.DUST;
+
         }
         DUST_PARTICLE = dust;
     }

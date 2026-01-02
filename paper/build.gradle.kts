@@ -22,7 +22,7 @@ dependencies {
 }
 
 tasks.runServer {
-    minecraftVersion("1.21.8")
+    minecraftVersion("1.21.11")
 }
 
 tasks.shadowJar {
@@ -63,7 +63,7 @@ paperPluginYaml {
     main = "io.github.wasabithumb.xclaim.XClaimPlugin"
     bootstrapper = "io.github.wasabithumb.xclaim.XClaimPluginBootstrap"
     description = "A fully-featured chunk claiming system for community servers"
-    apiVersion = "1.19"
+    apiVersion = "1.21.11"
     website = "https://wasabithumb.github.io/"
     foliaSupported = true
     prefix = "XC"

@@ -36,7 +36,7 @@ bukkitPluginYaml {
     name = "XClaim"
     main = "io.github.wasabithumb.xclaim.XClaimPlugin"
     description = "A fully-featured chunk claiming system for community servers"
-    apiVersion = "1.18"
+    apiVersion = "1.21.11"
     website = "https://wasabithumb.github.io/"
     foliaSupported = true
     prefix = "XC"

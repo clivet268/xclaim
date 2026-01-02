@@ -58,7 +58,7 @@ public abstract class BukkitPlatformItem implements PlatformItem {
 
     @Override
     public BukkitPlatformItem holographic() {
-        return this.modifyMeta((ItemMeta m) -> m.addEnchant(Enchantment.DAMAGE_ALL, 1, true));
+        return this.modifyMeta((ItemMeta m) -> m.addEnchant(Enchantment.SHARPNESS, 1, true));
     }
 
     @Override

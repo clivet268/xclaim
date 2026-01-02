@@ -75,8 +75,8 @@ public final class AttributeUtil {
                 toughness = 3d;
                 break;
         }
-        armor = scaleByAttributes(armor, type, slot, Attribute.GENERIC_ARMOR);
-        toughness = scaleByAttributes(toughness, type, slot, Attribute.GENERIC_ARMOR_TOUGHNESS);
+        armor = scaleByAttributes(armor, type, slot, Attribute.ARMOR);
+        toughness = scaleByAttributes(toughness, type, slot, Attribute.ARMOR_TOUGHNESS);
 
         double modification = armor - ((4d * damage) / (toughness + 8d));
         modification = Math.min(20d, Math.max(armor / 5d, modification));
@@ -85,7 +85,7 @@ public final class AttributeUtil {
 
         // Enchants (Protection)
         Map<Enchantment, Integer> enchants = item.getEnchantments();
-        Integer protectionLevel = enchants.get(Enchantment.PROTECTION_ENVIRONMENTAL);
+        Integer protectionLevel = enchants.get(Enchantment.PROTECTION);
         if (protectionLevel != null && protectionLevel > 0) {
             damage *= (1d - (protectionLevel * 0.04d));
         }
